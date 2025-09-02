@@ -1,26 +1,26 @@
 {
   "name": "exchange-panel",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "exchange-panel/src",
+  "sourceRoot": "apps/exchange-panel/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/exchange-panel",
-        "browser": "exchange-panel/src/main.ts",
+        "outputPath": "dist/apps/exchange-panel",
+        "browser": "apps/exchange-panel/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "exchange-panel/tsconfig.app.json",
+        "tsConfig": "apps/exchange-panel/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "exchange-panel/public"
+            "input": "apps/exchange-panel/public"
           }
         ],
-        "styles": ["exchange-panel/src/styles.css"]
+        "styles": ["apps/exchange-panel/src/styles.css"]
       },
       "configurations": {
         "production": {
@@ -72,7 +72,7 @@
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "reportsDirectory": "../coverage/exchange-panel"
+        "reportsDirectory": "../../coverage/apps/exchange-panel"
       }
     },
     "serve-static": {
@@ -80,7 +80,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "exchange-panel:build",
-        "staticFilePath": "dist/exchange-panel/browser",
+        "staticFilePath": "dist/apps/exchange-panel/browser",
         "spa": true
       }
     }

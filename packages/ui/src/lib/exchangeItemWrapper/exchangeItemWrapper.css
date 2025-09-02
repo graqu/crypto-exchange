@@ -1,0 +1,15 @@
+.exchange-item-wrapper {
+  padding: 1em;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.exchange-item-wrapper currency {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.exchange-item-wrapper:focus-within {
+  border: 2px solid gold;
+}

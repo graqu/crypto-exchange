@@ -14,4 +14,6 @@ import { Component } from '@angular/core';
         cursor: pointer;
   }`,
 })
-export class Button {}
+export class Button {
+  label: string = 'Proceed';
+}

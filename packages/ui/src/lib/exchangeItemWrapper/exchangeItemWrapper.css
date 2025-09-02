@@ -10,6 +10,6 @@
   align-items: center;
   margin-bottom: 8px;
 }
-.exchange-item-wrapper:focus-within {
+.focus-sensitive:focus-within {
   border: 2px solid gold;
 }

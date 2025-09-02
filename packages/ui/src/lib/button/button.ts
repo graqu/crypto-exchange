@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'lib-button',
-  template: ` <button>Click Me !</button> `,
+  template: `
+    <button [type]="buttonType()">{{ label() }}</button>
+  `,
   styles: `button{
         font-size: 1rem;
         padding:  0.5em 1em;
@@ -15,5 +18,6 @@ import { Component } from '@angular/core';
   }`,
 })
 export class Button {
-  label: string = 'Proceed';
+  label = input<string>('Proceed');
+  buttonType = input<string>('button');
 }

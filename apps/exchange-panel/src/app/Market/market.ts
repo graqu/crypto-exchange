@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Button } from '@packages/ui';
 import { ExchangeItemWrapper } from '@packages/ui';
+import { marketData } from '@packages/shared';
 
 @Component({
   selector: 'app-market',
@@ -8,10 +9,20 @@ import { ExchangeItemWrapper } from '@packages/ui';
   template: `
     <div class="market">
       <form class="form">
-        <lib-exchange-item-wrapper [amount]="ammountA" currency="BTC" />
-        <button type="button">⇅</button>
-        <lib-exchange-item-wrapper [amount]="ammountB" currency="ETH" />
-        <lib-button />
+        <lib-exchange-item-wrapper
+          [amount]="firstItem.amount"
+          [currency]="firstItem.coin"
+          [detectFocus]="true"
+          (changeCallback)="updateAmounts($event)"
+        />
+        <button type="button" (click)="swapCurrencies()">⇅</button>
+        <lib-exchange-item-wrapper
+          [amount]="secondItem.amount"
+          [currency]="secondItem.coin"
+          [detectFocus]="true"
+          (changeCallback)="updateAmounts($event)"
+        />
+        <lib-button (click)="confirmTransaction()" />
       </form>
     </div>
   `,
@@ -25,6 +36,27 @@ import { ExchangeItemWrapper } from '@packages/ui';
   `,
 })
 export class Market {
-  ammountA = 1;
-  ammountB = 2;
+  firstItem = {
+    coin: 'BTC',
+    amount: 0,
+    usdPrice: marketData.find((coin) => coin.symbol === 'BTC'),
+  };
+  secondItem = {
+    coin: 'ETH',
+    amount: 0,
+    usdPrice: marketData.find((coin) => coin.symbol === 'ETH'),
+  };
+  updateAmounts = (event: any) => {
+    console.log('Amount changed:', event);
+  };
+  swapCurrencies = () => {
+    const newFirst = this.secondItem;
+    const newSecond = this.firstItem;
+
+    this.firstItem = newFirst;
+    this.secondItem = newSecond;
+  };
+  confirmTransaction = () => {
+    alert('Exchange completed — your tokens have been swapped successfully.');
+  };
 }

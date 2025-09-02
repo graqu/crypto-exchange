@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Button } from '@packages/ui';
-import { convertToken } from '@packages/shared';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [RouterModule, Button],
+  imports: [RouterModule, RouterOutlet],
   selector: 'app-root',
   template: `
-    <h1>Siema</h1>
-    <lib-button />
-    <p>Po standardowym kursie 2 jednostki dadzą nam {{ calcPrice(2) }} $</p>
-    <p>Po kursie =5, 2 jednostki dadzą nam {{ calcPrice(2, 5) }} $</p>
+    <main>
+      <div>
+        <div class="tab-menu">
+          <a routerLink="/">Market</a>
+          <a routerLink="/limit">Limit</a>
+        </div>
+        <router-outlet />
+      </div>
+    </main>
   `,
+  styleUrl: './app.css',
 })
 export class App {
   protected title = 'exchange-panel';
-  calcPrice = convertToken;
 }

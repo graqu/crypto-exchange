@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
   selector: 'lib-button',
   template: ` <button>Click Me !</button> `,
   styles: `button{
-        padding: 0;
+        font-size: 1rem;
+        padding:  0.5em 1em;
         background: none;
         background-color: gold;
         font-weight:bold;

@@ -122,7 +122,7 @@ export class Market implements OnInit, OnDestroy {
     this.secondItem = provideDefaultValues(this.marketData).secondItem;
     this.isFormValid = false;
   };
-  changeCoinOnInput = (newCoin: string, isToSell: boolean = true) => {
+  changeCoinOnInput = (newCoin: string, isToSell = true) => {
     const newCoinData = this.marketData.find((coin) => coin.symbol === newCoin);
     if (!newCoinData) return;
     if (isToSell) {

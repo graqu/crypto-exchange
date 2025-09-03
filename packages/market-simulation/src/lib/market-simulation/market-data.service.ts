@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, interval } from 'rxjs';
 import { marketData, updateMarketData } from './market-simulation'; // Zaimportuj swoje funkcje i dane
-import { CoinData } from './market-simulation';
-
+import { CoinData } from '@packages/shared';
 
 const updateTimePeriod = 500; // interval length in [ms] when prices will update
 

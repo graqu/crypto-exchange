@@ -118,8 +118,8 @@ export class Market implements OnInit, OnDestroy {
     alert(
       `Exchange completed — You have bought ${this.secondItem.amount} ${this.secondItem.coin} for ${this.firstItem.amount} ${this.firstItem.coin}`
     );
-    this.firstItem = provideDefaultValues().firstItem;
-    this.secondItem = provideDefaultValues().secondItem;
+    this.firstItem = provideDefaultValues(this.marketData).firstItem;
+    this.secondItem = provideDefaultValues(this.marketData).secondItem;
     this.isFormValid = false;
   };
   changeCoinToSell = (newCoin: string) => {

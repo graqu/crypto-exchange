@@ -1,11 +1,4 @@
-export type CoinData = {
-  id: number;
-  symbol: string;
-  name: string;
-  priceUsd: number;
-  priceBtc: number;
-  iconUrl: string;
-};
+import { CoinData } from '@packages/shared';
 
 export let marketData: CoinData[] = [
   {
@@ -95,7 +88,6 @@ const initialPriceData = marketData.map((coin) => ({
   ...coin,
 })) satisfies CoinData[];
 
-
 function limitMaxPriceChange(price: number, referencePrice: number) {
   return Math.min(
     Math.max(price, referencePrice * (1 - priceFluctuations / 100)),
@@ -103,7 +95,7 @@ function limitMaxPriceChange(price: number, referencePrice: number) {
   );
 }
 
-export function generateNewPrice(price: number, referencePrice: number) {
+function generateNewPrice(price: number, referencePrice: number) {
   const change =
     Math.random() * (priceFluctuations * 2) - priceFluctuations / 2;
 

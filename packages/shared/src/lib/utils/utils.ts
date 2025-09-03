@@ -1,5 +1,5 @@
-import { marketData } from '@crypto-exchange/market-simulation';
 import { TransationItem } from '../types/utilTypes';
+import { CoinData } from '../types/utilTypes';
 
 export function formatCoinAmount(amount: number) {
   return parseFloat(amount.toFixed(4));
@@ -13,7 +13,7 @@ export function calcExchangeRate(sellItemPrice: number, buyItemPrice: number) {
   return sellItemPrice / buyItemPrice;
 }
 
-export function provideDefaultValues() {
+export function provideDefaultValues(marketData: CoinData[]) {
   return {
     firstItem: {
       coin: 'BTC',

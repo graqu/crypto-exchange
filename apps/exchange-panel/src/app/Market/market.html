@@ -6,18 +6,24 @@
         [amount]="firstItem.amount"
         [currency]="firstItem.coin"
         (changeCallback)="updateAmounts($event, true)"
-        ><app-choose-token-modal (userChoiceHandler)="changeCoinToSell($event)"
-      /></lib-deal-value-field>
+      >
+        <app-choose-token-modal
+          (userChoiceHandler)="changeCoinOnInput($event, true)"
+          [label]="firstItem.coin"
+        />
+      </lib-deal-value-field>
     </lib-exchange-item-wrapper>
     <button type="button" (click)="swapCurrencies()">⇅</button>
     <lib-exchange-item-wrapper [detectFocus]="true">
       <lib-deal-value-field
+        [isCustomElement]="true"
         inputName="buy"
         [amount]="secondItem.amount"
         [currency]="secondItem.coin"
         (changeCallback)="updateAmounts($event, false)"
         ><app-choose-token-modal
-          (userChoiceHandler)="changeCoinToSell($event)"
+          [label]="secondItem.coin"
+          (userChoiceHandler)="changeCoinOnInput($event, false)"
         ></app-choose-token-modal
       ></lib-deal-value-field>
     </lib-exchange-item-wrapper>

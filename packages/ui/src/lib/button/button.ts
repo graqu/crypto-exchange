@@ -4,7 +4,13 @@ import { input } from '@angular/core';
 @Component({
   selector: 'lib-button',
   template: `
-    <button [type]="buttonType()" [disabled]="disabled()">{{ label() }}</button>
+    <button [type]="buttonType()" [disabled]="disabled()">
+      @if(label()){
+      {{ label() }}
+      }@else {
+      <ng-content />
+      }
+    </button>
   `,
   styles: `
   button{
@@ -23,7 +29,7 @@ import { input } from '@angular/core';
   `,
 })
 export class Button {
-  label = input<string>('Proceed');
+  label = input<string>();
   buttonType = input<string>('button');
   disabled = input<boolean>(false);
 }

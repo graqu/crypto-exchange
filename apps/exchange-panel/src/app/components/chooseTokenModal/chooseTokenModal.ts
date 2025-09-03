@@ -1,4 +1,14 @@
-import { Component, ElementRef, ViewChild, output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Signal,
+  ViewChild,
+  computed,
+  effect,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { Button } from '@packages/ui';
 import { marketData } from '@crypto-exchange/market-simulation';
 
@@ -6,7 +16,14 @@ import { marketData } from '@crypto-exchange/market-simulation';
   selector: 'app-choose-token-modal',
   imports: [Button],
   template: `
-    <lib-button type="button" (click)="openDialog()" label="test Me" />
+    <lib-button type="button" (click)="openDialog()">
+      <img
+        [src]="imagePath()"
+        alt=""
+        width="24"
+        (error)="handleIconNotFound()"
+      /><span>{{ label() }}</span>
+    </lib-button>
     <dialog #dialogRef class="modal">
       <div class="modal-content">
         <h1>Choose one option</h1>
@@ -52,7 +69,23 @@ import { marketData } from '@crypto-exchange/market-simulation';
 export class ChooseTokenModalComponent {
   @ViewChild('dialogRef') dialogRef!: ElementRef<HTMLDialogElement>;
   coinsList = marketData;
+  label = input<string>('');
   userChoiceHandler = output<string>();
+
+  imagePath = signal('/btc-logo.png');
+
+  constructor() {
+    effect(() => {
+      const labelValue = this.label();
+      if (labelValue) {
+        this.imagePath.set(`/${labelValue.toLowerCase()}-logo.png`);
+      }
+    });
+  }
+
+  handleIconNotFound() {
+    this.imagePath.set('/btc-logo.png');
+  }
 
   openDialog(): void {
     this.dialogRef.nativeElement.showModal();

@@ -122,10 +122,18 @@ export class Market implements OnInit, OnDestroy {
     this.secondItem = provideDefaultValues(this.marketData).secondItem;
     this.isFormValid = false;
   };
-  changeCoinToSell = (newCoin: string) => {
+  changeCoinOnInput = (newCoin: string, isToSell: boolean = true) => {
     const newCoinData = this.marketData.find((coin) => coin.symbol === newCoin);
-    if (newCoinData) {
+    if (!newCoinData) return;
+    if (isToSell) {
       this.firstItem = {
+        coin: newCoinData.symbol,
+        amount: 0,
+        usdPrice: newCoinData.priceUsd,
+        btcPrice: newCoinData.priceBtc,
+      };
+    } else {
+      this.secondItem = {
         coin: newCoinData.symbol,
         amount: 0,
         usdPrice: newCoinData.priceUsd,

@@ -7,6 +7,7 @@ import {
   convertToken,
   transationItem,
   provideDefaultValues,
+  validateBuySellForm,
 } from '@packages/shared';
 
 @Component({
@@ -32,7 +33,7 @@ import {
           />
         </lib-exchange-item-wrapper>
         <lib-button
-          [disabled]="true"
+          [disabled]="!isFormValid"
           (click)="confirmTransaction()"
           label="Sell {{ firstItem.coin }}"
         />
@@ -60,6 +61,7 @@ export class Market {
     usdPrice: marketData.find((coin) => coin.symbol === 'ETH')?.priceUsd || 0,
   };
   exchangeRate = 1;
+  isFormValid = false;
 
   updateAmounts = (amount: number, isFirst: boolean) => {
     if (isFirst) {
@@ -77,7 +79,7 @@ export class Market {
       this.firstItem.amount = convertToken(amount, this.exchangeRate);
       this.secondItem.amount = amount;
     }
-
+    this.isFormValid = validateBuySellForm(this.firstItem, this.secondItem);
     console.log(
       'Amount changed:',
       amount,
@@ -97,5 +99,6 @@ export class Market {
     );
     this.firstItem = provideDefaultValues().firstItem;
     this.secondItem = provideDefaultValues().secondItem;
+    this.isFormValid = false;
   };
 }

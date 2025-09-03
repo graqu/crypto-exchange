@@ -1,4 +1,4 @@
-import { CoinData } from '../types/utilTypes';
+import { CoinData, transationItem } from '../types/utilTypes';
 
 export const marketData: CoinData[] = [
   { id: 1, symbol: 'BTC', name: 'Bitcoin', priceUsd: 110532, iconUrl: '' },
@@ -40,4 +40,11 @@ export function provideDefaultValues() {
       usdPrice: marketData.find((coin) => coin.symbol === 'ETH')?.priceUsd || 0,
     },
   };
+}
+
+export function validateBuySellForm(
+  toSell: transationItem,
+  toBuy: transationItem
+) {
+  return toSell.amount > 0 && toBuy.amount > 0 && !!toBuy.coin;
 }

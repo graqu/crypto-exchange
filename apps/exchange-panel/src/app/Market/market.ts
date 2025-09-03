@@ -1,27 +1,29 @@
 import { Component } from '@angular/core';
 import { Button } from '@packages/ui';
-import { ExchangeItemWrapper } from '@packages/ui';
+import { ExchangeItemWrapper, DealValueField } from '@packages/ui';
 import { marketData } from '@packages/shared';
 
 @Component({
   selector: 'app-market',
-  imports: [Button, ExchangeItemWrapper],
+  imports: [Button, ExchangeItemWrapper, DealValueField],
   template: `
     <div class="market">
       <form class="form">
-        <lib-exchange-item-wrapper
-          [amount]="firstItem.amount"
-          [currency]="firstItem.coin"
-          [detectFocus]="true"
-          (changeCallback)="updateAmounts($event)"
-        />
+        <lib-exchange-item-wrapper [detectFocus]="true">
+          <lib-deal-value-field
+            [amount]="secondItem.amount"
+            [currency]="secondItem.coin"
+            (changeCallback)="updateAmounts($event)"
+          />
+        </lib-exchange-item-wrapper>
         <button type="button" (click)="swapCurrencies()">⇅</button>
-        <lib-exchange-item-wrapper
-          [amount]="secondItem.amount"
-          [currency]="secondItem.coin"
-          [detectFocus]="true"
-          (changeCallback)="updateAmounts($event)"
-        />
+        <lib-exchange-item-wrapper [detectFocus]="true">
+          <lib-deal-value-field
+            [amount]="firstItem.amount"
+            [currency]="firstItem.coin"
+            (changeCallback)="updateAmounts($event)"
+          />
+        </lib-exchange-item-wrapper>
         <lib-button
           (click)="confirmTransaction()"
           label="Sell {{ firstItem.coin }}"

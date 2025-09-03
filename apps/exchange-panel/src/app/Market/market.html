@@ -1,0 +1,25 @@
+<div class="market">
+  <form class="form">
+    <lib-exchange-item-wrapper [detectFocus]="true">
+      <lib-deal-value-field
+        [amount]="firstItem.amount"
+        [currency]="firstItem.coin"
+        (changeCallback)="updateAmounts($event, true)"
+      />
+    </lib-exchange-item-wrapper>
+    <button type="button" (click)="swapCurrencies()">⇅</button>
+    <lib-exchange-item-wrapper [detectFocus]="true">
+      <lib-deal-value-field
+        inputName="buy"
+        [amount]="secondItem.amount"
+        [currency]="secondItem.coin"
+        (changeCallback)="updateAmounts($event, false)"
+      />
+    </lib-exchange-item-wrapper>
+    <lib-button
+      [disabled]="!isFormValid"
+      (click)="confirmTransaction()"
+      label="Sell {{ firstItem.coin }}"
+    />
+  </form>
+</div>

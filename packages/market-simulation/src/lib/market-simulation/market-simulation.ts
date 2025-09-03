@@ -1,6 +1,6 @@
 import { CoinData } from '@packages/shared';
 
-export const marketData: CoinData[] = [
+export let marketData: CoinData[] = [
   { id: 1, symbol: 'BTC', name: 'Bitcoin', priceUsd: 110532, iconUrl: '' },
   { id: 2, symbol: 'ETH', name: 'Ethereum', priceUsd: 4290.67, iconUrl: '' },
   { id: 3, symbol: 'USDT', name: 'Tether', priceUsd: 1.0, iconUrl: '' },
@@ -19,11 +19,20 @@ export const marketData: CoinData[] = [
   { id: 10, symbol: 'TRX', name: 'TRON', priceUsd: 0.3373, iconUrl: '' },
 ];
 
-const priceFluctuations = 2 //descibes how many [%] down or up can price change in defined time period
-const updateTimePeriod = 500 // interval length in [ms] when prices will update
+const priceFluctuations = 2; //descibes how many [%] down or up can price change in defined time period
+const updateTimePeriod = 500; // interval length in [ms] when prices will update
 
-function generateNewPrice(price:number){
-  
+export function generateNewPrice(price: number) {
+  const change = Math.random() * (priceFluctuations * 2) - 2;
+
+  return price + (price * change) / 100;
 }
 
-export function updateMarketData() {}
+export function updateMarketData() {
+  const newMarketData = [...marketData].map((coin) => ({
+    ...coin,
+    priceUsd: generateNewPrice(coin.priceUsd),
+  }));
+
+  marketData = newMarketData;
+}

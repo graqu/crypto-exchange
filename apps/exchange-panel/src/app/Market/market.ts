@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Button } from '@packages/ui';
 import { ExchangeItemWrapper, DealValueField } from '@packages/ui';
 import {
@@ -9,45 +9,14 @@ import {
   provideDefaultValues,
   validateBuySellForm,
 } from '@packages/shared';
+import { MarketDataService } from '@crypto-exchange/market-simulation';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-market',
   imports: [Button, ExchangeItemWrapper, DealValueField],
-  template: `
-    <div class="market">
-      <form class="form">
-        <lib-exchange-item-wrapper [detectFocus]="true">
-          <lib-deal-value-field
-            [amount]="firstItem.amount"
-            [currency]="firstItem.coin"
-            (changeCallback)="updateAmounts($event, true)"
-          />
-        </lib-exchange-item-wrapper>
-        <button type="button" (click)="swapCurrencies()">⇅</button>
-        <lib-exchange-item-wrapper [detectFocus]="true">
-          <lib-deal-value-field
-            inputName="buy"
-            [amount]="secondItem.amount"
-            [currency]="secondItem.coin"
-            (changeCallback)="updateAmounts($event, false)"
-          />
-        </lib-exchange-item-wrapper>
-        <lib-button
-          [disabled]="!isFormValid"
-          (click)="confirmTransaction()"
-          label="Sell {{ firstItem.coin }}"
-        />
-      </form>
-    </div>
-  `,
-  styles: `
-  .form{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:1em;
-  }
-  `,
+  templateUrl: './market.html',
+  styleUrl: './market.css',
 })
 export class Market {
   firstItem: transationItem = {
@@ -62,6 +31,7 @@ export class Market {
   };
   exchangeRate = 1;
   isFormValid = false;
+  
 
   updateAmounts = (amount: number, isFirst: boolean) => {
     if (isFirst) {

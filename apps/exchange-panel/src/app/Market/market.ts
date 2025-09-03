@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Button } from '@packages/ui';
 import { ExchangeItemWrapper, DealValueField } from '@packages/ui';
 import {
-  marketData,
   calcExchangeRate,
   convertToken,
-  transationItem,
+  TransationItem,
   provideDefaultValues,
   validateBuySellForm,
+  CoinData,
 } from '@packages/shared';
 import { MarketDataService } from '@crypto-exchange/market-simulation';
 import { Subscription } from 'rxjs';
@@ -18,20 +18,63 @@ import { Subscription } from 'rxjs';
   templateUrl: './market.html',
   styleUrl: './market.css',
 })
-export class Market {
-  firstItem: transationItem = {
+export class Market implements OnInit, OnDestroy {
+  marketData: CoinData[] = [];
+  private marketDataSubscription!: Subscription;
+  firstItem: TransationItem = {
     coin: 'BTC',
     amount: 0,
-    usdPrice: marketData.find((coin) => coin.symbol === 'BTC')?.priceUsd || 0,
+    usdPrice: 0,
+    btcPrice: 0,
   };
-  secondItem: transationItem = {
+  secondItem: TransationItem = {
     coin: 'ETH',
     amount: 0,
-    usdPrice: marketData.find((coin) => coin.symbol === 'ETH')?.priceUsd || 0,
+    usdPrice: 0,
+    btcPrice: 0,
   };
   exchangeRate = 1;
+  lastActiveField: 'buy' | 'sell' = 'buy';
   isFormValid = false;
-  
+
+  constructor(private marketDataService: MarketDataService) {}
+  ngOnInit(): void {
+    // Service data streaming
+    this.marketDataSubscription = this.marketDataService.marketData$.subscribe(
+      (data) => {
+        this.marketData = data;
+
+        const itemToSellData = this.marketData.find(
+          (coin) => coin.symbol === this.firstItem.coin
+        );
+        if (itemToSellData) {
+          this.firstItem.usdPrice = itemToSellData.priceUsd;
+          this.firstItem.btcPrice = itemToSellData.priceBtc;
+        }
+
+        const itemToBuyData = this.marketData.find(
+          (coin) => coin.symbol === this.secondItem.coin
+        );
+        if (itemToBuyData) {
+          this.secondItem.usdPrice = itemToBuyData.priceUsd;
+          this.secondItem.btcPrice = itemToBuyData.priceBtc;
+        }
+
+        if (this.lastActiveField === 'sell') {
+          this.updateAmounts(this.firstItem.amount, true);
+        } else {
+          this.updateAmounts(this.secondItem.amount, false);
+        }
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    // Pamiętaj o wyczyszczeniu subskrypcji
+    if (this.marketDataSubscription) {
+      this.marketDataSubscription.unsubscribe();
+    }
+  }
 
   updateAmounts = (amount: number, isFirst: boolean) => {
     if (isFirst) {
@@ -39,6 +82,7 @@ export class Market {
         this.firstItem.usdPrice,
         this.secondItem.usdPrice
       );
+      this.lastActiveField = 'sell';
       this.firstItem.amount = amount;
       this.secondItem.amount = convertToken(amount, this.exchangeRate);
     } else {
@@ -46,6 +90,7 @@ export class Market {
         this.secondItem.usdPrice,
         this.firstItem.usdPrice
       );
+      this.lastActiveField = 'buy';
       this.firstItem.amount = convertToken(amount, this.exchangeRate);
       this.secondItem.amount = amount;
     }

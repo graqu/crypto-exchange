@@ -1,7 +1,8 @@
-export type transationItem = {
+export type TransationItem = {
   coin: string;
   amount: number;
   usdPrice: number;
+  btcPrice: number;
 };
 
 export type CoinData = {
@@ -9,5 +10,6 @@ export type CoinData = {
   symbol: string;
   name: string;
   priceUsd: number;
+  priceBtc: number;
   iconUrl: string;
 };

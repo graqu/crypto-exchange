@@ -1,30 +1,16 @@
-import { CoinData, transationItem } from '../types/utilTypes';
+import { marketData } from '@crypto-exchange/market-simulation';
+import { TransationItem } from '../types/utilTypes';
 
-export const marketData: CoinData[] = [
-  { id: 1, symbol: 'BTC', name: 'Bitcoin', priceUsd: 110532, iconUrl: '' },
-  { id: 2, symbol: 'ETH', name: 'Ethereum', priceUsd: 4290.67, iconUrl: '' },
-  { id: 3, symbol: 'USDT', name: 'Tether', priceUsd: 1.0, iconUrl: '' },
-  { id: 4, symbol: 'XRP', name: 'XRP', priceUsd: 2.8, iconUrl: '' },
-  { id: 5, symbol: 'BNB', name: 'BNB', priceUsd: 849.68, iconUrl: '' },
-  { id: 6, symbol: 'SOL', name: 'Solana', priceUsd: 204.13, iconUrl: '' },
-  { id: 7, symbol: 'USDC', name: 'USD Coin', priceUsd: 0.9999, iconUrl: '' },
-  {
-    id: 8,
-    symbol: 'STETH',
-    name: 'Lido Staked Ether',
-    priceUsd: 4282.82,
-    iconUrl: '',
-  },
-  { id: 9, symbol: 'DOGE', name: 'Dogecoin', priceUsd: 0.2113, iconUrl: '' },
-  { id: 10, symbol: 'TRX', name: 'TRON', priceUsd: 0.3373, iconUrl: '' },
-];
+export function formatCoinAmount(amount: number) {
+  return parseFloat(amount.toFixed(4));
+}
 
 export function convertToken(amount: number, rate: number): number {
-  return amount * rate;
+  return formatCoinAmount(amount * rate);
 }
 
 export function calcExchangeRate(sellItemPrice: number, buyItemPrice: number) {
-  return parseFloat((sellItemPrice / buyItemPrice).toFixed(8));
+  return formatCoinAmount(sellItemPrice / buyItemPrice);
 }
 
 export function provideDefaultValues() {
@@ -33,18 +19,20 @@ export function provideDefaultValues() {
       coin: 'BTC',
       amount: 0,
       usdPrice: marketData.find((coin) => coin.symbol === 'BTC')?.priceUsd || 0,
+      btcPrice: 1,
     },
     secondItem: {
       coin: 'ETH',
       amount: 0,
       usdPrice: marketData.find((coin) => coin.symbol === 'ETH')?.priceUsd || 0,
+      btcPrice: 0.2,
     },
   };
 }
 
 export function validateBuySellForm(
-  toSell: transationItem,
-  toBuy: transationItem
+  toSell: TransationItem,
+  toBuy: TransationItem
 ) {
   return toSell.amount > 0 && toBuy.amount > 0 && !!toBuy.coin;
 }

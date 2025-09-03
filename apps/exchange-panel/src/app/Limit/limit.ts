@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-limit',
   template: `
     <div class="limit">
-      <h1>Limit Component</h1>
-      <p>currently not available.</p>
+      <h1>Limit Sell</h1>
+      <p>🏗️ Feature under construction.</p>
     </div>
   `,
 })

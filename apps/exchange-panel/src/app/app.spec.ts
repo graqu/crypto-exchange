@@ -1,13 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { NxWelcome } from './nx-welcome';
 import { provideRouter } from '@angular/router';
 
 describe('App', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [App],
-      // Używamy provideRouter() zamiast RouterTestingModule. Jest to nowa, preferowana metoda.
       providers: [
         provideRouter([])
       ]

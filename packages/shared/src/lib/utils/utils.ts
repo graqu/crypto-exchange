@@ -1,4 +1,6 @@
-export const marketData = [
+import { CoinData } from '../types/utilTypes';
+
+export const marketData: CoinData[] = [
   { id: 1, symbol: 'BTC', name: 'Bitcoin', priceUsd: 110532, iconUrl: '' },
   { id: 2, symbol: 'ETH', name: 'Ethereum', priceUsd: 4290.67, iconUrl: '' },
   { id: 3, symbol: 'USDT', name: 'Tether', priceUsd: 1.0, iconUrl: '' },
@@ -22,5 +24,20 @@ export function convertToken(amount: number, rate: number): number {
 }
 
 export function calcExchangeRate(sellItemPrice: number, buyItemPrice: number) {
-  return sellItemPrice / buyItemPrice;
+  return parseFloat((sellItemPrice / buyItemPrice).toFixed(8));
+}
+
+export function provideDefaultValues() {
+  return {
+    firstItem: {
+      coin: 'BTC',
+      amount: 0,
+      usdPrice: marketData.find((coin) => coin.symbol === 'BTC')?.priceUsd || 0,
+    },
+    secondItem: {
+      coin: 'ETH',
+      amount: 0,
+      usdPrice: marketData.find((coin) => coin.symbol === 'ETH')?.priceUsd || 0,
+    },
+  };
 }

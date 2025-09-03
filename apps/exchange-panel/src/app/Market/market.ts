@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { Button } from '@packages/ui';
 import { ExchangeItemWrapper, DealValueField } from '@packages/ui';
-import { marketData } from '@packages/shared';
+import {
+  marketData,
+  calcExchangeRate,
+  convertToken,
+  transationItem,
+  provideDefaultValues,
+} from '@packages/shared';
 
 @Component({
   selector: 'app-market',
@@ -11,20 +17,22 @@ import { marketData } from '@packages/shared';
       <form class="form">
         <lib-exchange-item-wrapper [detectFocus]="true">
           <lib-deal-value-field
-            [amount]="secondItem.amount"
-            [currency]="secondItem.coin"
-            (changeCallback)="updateAmounts($event)"
+            [amount]="firstItem.amount"
+            [currency]="firstItem.coin"
+            (changeCallback)="updateAmounts($event, true)"
           />
         </lib-exchange-item-wrapper>
         <button type="button" (click)="swapCurrencies()">⇅</button>
         <lib-exchange-item-wrapper [detectFocus]="true">
           <lib-deal-value-field
-            [amount]="firstItem.amount"
-            [currency]="firstItem.coin"
-            (changeCallback)="updateAmounts($event)"
+            inputName="buy"
+            [amount]="secondItem.amount"
+            [currency]="secondItem.coin"
+            (changeCallback)="updateAmounts($event, false)"
           />
         </lib-exchange-item-wrapper>
         <lib-button
+          [disabled]="true"
           (click)="confirmTransaction()"
           label="Sell {{ firstItem.coin }}"
         />
@@ -41,20 +49,40 @@ import { marketData } from '@packages/shared';
   `,
 })
 export class Market {
-  firstItem = {
+  firstItem: transationItem = {
     coin: 'BTC',
     amount: 0,
-    usdPrice: marketData.find((coin) => coin.symbol === 'BTC'),
+    usdPrice: marketData.find((coin) => coin.symbol === 'BTC')?.priceUsd || 0,
   };
-  secondItem = {
+  secondItem: transationItem = {
     coin: 'ETH',
     amount: 0,
-    usdPrice: marketData.find((coin) => coin.symbol === 'ETH'),
+    usdPrice: marketData.find((coin) => coin.symbol === 'ETH')?.priceUsd || 0,
   };
-  updateAmounts = (event: any) => {
-    this.firstItem.amount = 2;
-    this.secondItem.amount = 4;
-    console.log('Amount changed:', event);
+  exchangeRate = 1;
+
+  updateAmounts = (amount: number, isFirst: boolean) => {
+    if (isFirst) {
+      this.exchangeRate = calcExchangeRate(
+        this.firstItem.usdPrice,
+        this.secondItem.usdPrice
+      );
+      this.firstItem.amount = amount;
+      this.secondItem.amount = convertToken(amount, this.exchangeRate);
+    } else {
+      this.exchangeRate = calcExchangeRate(
+        this.secondItem.usdPrice,
+        this.firstItem.usdPrice
+      );
+      this.firstItem.amount = convertToken(amount, this.exchangeRate);
+      this.secondItem.amount = amount;
+    }
+
+    console.log(
+      'Amount changed:',
+      amount,
+      isFirst ? 'na pierwszym polu' : 'na drugim'
+    );
   };
   swapCurrencies = () => {
     const newFirst = { ...this.secondItem };
@@ -64,6 +92,10 @@ export class Market {
     this.secondItem = newSecond;
   };
   confirmTransaction = () => {
-    alert('Exchange completed — your tokens have been swapped successfully.');
+    alert(
+      `Exchange completed — You have bought ${this.secondItem.amount} ${this.secondItem.coin} for ${this.firstItem.amount} ${this.firstItem.coin}`
+    );
+    this.firstItem = provideDefaultValues().firstItem;
+    this.secondItem = provideDefaultValues().secondItem;
   };
 }

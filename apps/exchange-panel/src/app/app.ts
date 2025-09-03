@@ -7,6 +7,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   template: `
     <main>
+      <h1 aria-hidden="true" class="display:none">{{ title }}</h1>
       <div>
         <div class="tab-menu">
           <a routerLink="/">Market</a>

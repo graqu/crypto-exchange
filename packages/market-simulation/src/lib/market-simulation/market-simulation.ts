@@ -1,4 +1,11 @@
-import { CoinData } from '@packages/shared';
+export type CoinData = {
+  id: number;
+  symbol: string;
+  name: string;
+  priceUsd: number;
+  priceBtc: number;
+  iconUrl: string;
+};
 
 export let marketData: CoinData[] = [
   {
@@ -83,31 +90,48 @@ export let marketData: CoinData[] = [
   },
 ];
 
-const priceFluctuations = 2; //descibes how many [%] down or up can price change in defined time period
-const updateTimePeriod = 500; // interval length in [ms] when prices will update
+const priceFluctuations = 1; //descibes how many [%] down or up can price change in defined time period
+const initialPriceData = marketData.map((coin) => ({
+  ...coin,
+})) satisfies CoinData[];
 
-export function generateNewPrice(price: number) {
-  const change = Math.random() * (priceFluctuations * 2) - 2;
 
-  return price + (price * change) / 100;
+function limitMaxPriceChange(price: number, referencePrice: number) {
+  return Math.min(
+    Math.max(price, referencePrice * (1 - priceFluctuations / 100)),
+    referencePrice * (1 + priceFluctuations / 100)
+  );
+}
+
+export function generateNewPrice(price: number, referencePrice: number) {
+  const change =
+    Math.random() * (priceFluctuations * 2) - priceFluctuations / 2;
+
+  return limitMaxPriceChange(price + (price * change) / 100, referencePrice);
 }
 export function updateCoinData(coin: CoinData, btcToUsd: number) {
-  const newPrice = generateNewPrice(coin.priceUsd);
+  const referencePrice = initialPriceData.find(
+    (item) => item.name === coin.name
+  )?.priceUsd;
+  if (!referencePrice) return coin;
+
+  const newPrice = generateNewPrice(coin.priceUsd, referencePrice);
+
   return {
     ...coin,
     priceUsd: newPrice,
-    btcPrice: coin.priceUsd / btcToUsd,
+    btcPrice: newPrice / btcToUsd,
   };
 }
 
 export function updateMarketData() {
-  const btcData = marketData.find((coin) => (coin.name = 'BTC'));
+  const btcData = marketData.find((coin) => (coin.symbol = 'BTC'));
   if (!btcData) return;
 
   const newBtcData = updateCoinData(btcData, 1);
 
   const newMarketData = [...marketData].map((coin) => {
-    if (coin.name === 'BTC') return newBtcData;
+    if (coin.symbol === 'BTC') return newBtcData;
     return updateCoinData(coin, newBtcData.priceUsd);
   });
 

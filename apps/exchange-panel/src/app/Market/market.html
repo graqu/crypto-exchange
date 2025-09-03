@@ -2,10 +2,12 @@
   <form class="form">
     <lib-exchange-item-wrapper [detectFocus]="true">
       <lib-deal-value-field
+        [isCustomElement]="true"
         [amount]="firstItem.amount"
         [currency]="firstItem.coin"
         (changeCallback)="updateAmounts($event, true)"
-      />
+        ><app-choose-token-modal (userChoiceHandler)="changeCoinToSell($event)"
+      /></lib-deal-value-field>
     </lib-exchange-item-wrapper>
     <button type="button" (click)="swapCurrencies()">⇅</button>
     <lib-exchange-item-wrapper [detectFocus]="true">
@@ -14,13 +16,20 @@
         [amount]="secondItem.amount"
         [currency]="secondItem.coin"
         (changeCallback)="updateAmounts($event, false)"
-      />
+        ><app-choose-token-modal
+          (userChoiceHandler)="changeCoinToSell($event)"
+        ></app-choose-token-modal
+      ></lib-deal-value-field>
     </lib-exchange-item-wrapper>
+
     <lib-button
       [disabled]="!isFormValid"
       (click)="confirmTransaction()"
       label="Sell {{ firstItem.coin }}"
     />
   </form>
-  <p>1 {{ firstItem.coin }} = {{firstItem.btcPrice.toFixed(3)}} BTC (${{firstItem.usdPrice.toFixed(3)}})</p>
+  <p>
+    1 {{ firstItem.coin }} = {{firstItem.btcPrice.toFixed(3)}} BTC
+    (${{firstItem.usdPrice.toFixed(3)}})
+  </p>
 </div>

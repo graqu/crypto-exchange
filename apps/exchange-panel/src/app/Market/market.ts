@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Button } from '@packages/ui';
 import { ExchangeItemWrapper, DealValueField } from '@packages/ui';
 import {
@@ -10,11 +10,17 @@ import {
   CoinData,
 } from '@packages/shared';
 import { MarketDataService } from '@crypto-exchange/market-simulation';
+import { ChooseTokenModalComponent } from '../components/chooseTokenModal/chooseTokenModal';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-market',
-  imports: [Button, ExchangeItemWrapper, DealValueField],
+  imports: [
+    Button,
+    ExchangeItemWrapper,
+    DealValueField,
+    ChooseTokenModalComponent,
+  ],
   templateUrl: './market.html',
   styleUrl: './market.css',
 })
@@ -37,7 +43,7 @@ export class Market implements OnInit, OnDestroy {
   lastActiveField: 'buy' | 'sell' = 'buy';
   isFormValid = false;
 
-  constructor(private marketDataService: MarketDataService) {}
+  private marketDataService = inject(MarketDataService);
   ngOnInit(): void {
     // Service data streaming
     this.marketDataSubscription = this.marketDataService.marketData$.subscribe(
@@ -115,5 +121,16 @@ export class Market implements OnInit, OnDestroy {
     this.firstItem = provideDefaultValues().firstItem;
     this.secondItem = provideDefaultValues().secondItem;
     this.isFormValid = false;
+  };
+  changeCoinToSell = (newCoin: string) => {
+    const newCoinData = this.marketData.find((coin) => coin.symbol === newCoin);
+    if (newCoinData) {
+      this.firstItem = {
+        coin: newCoinData.symbol,
+        amount: 0,
+        usdPrice: newCoinData.priceUsd,
+        btcPrice: newCoinData.priceBtc,
+      };
+    }
   };
 }

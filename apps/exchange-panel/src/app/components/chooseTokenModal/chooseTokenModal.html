@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Wybierz token</h2>
+
+<mat-dialog-content>
+  <p>Tu możesz dodać swój token:</p>
+  <input matInput [(ngModel)]="tokenName" placeholder="Nowy token" />
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Anuluj</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">OK</button>
+</mat-dialog-actions>

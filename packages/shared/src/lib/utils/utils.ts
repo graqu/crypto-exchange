@@ -10,7 +10,7 @@ export function convertToken(amount: number, rate: number): number {
 }
 
 export function calcExchangeRate(sellItemPrice: number, buyItemPrice: number) {
-  return formatCoinAmount(sellItemPrice / buyItemPrice);
+  return sellItemPrice / buyItemPrice;
 }
 
 export function provideDefaultValues() {

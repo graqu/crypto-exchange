@@ -1,6 +1,8 @@
+@import '@packages/theme';
+
 .exchange-item-wrapper {
   padding: 1em;
-  background-color: #333;
+  background-color: var(--sub-background);
   border-radius: 1rem;
 }
 .focus-sensitive:focus-within {

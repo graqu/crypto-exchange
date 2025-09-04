@@ -1,4 +1,15 @@
 :root {
-  --sub-background: #0F0F0F;
+  /* colors */
+  --primary: #6cc196;
+
+  --text-light: #eeeeee;
+  --text-dark: #0f0f0f;
+  --text-mid: #4c4e4d;
+
+  --sub-background: #0f0f0f;
   --background: #060606;
+
+  /* sizing */
+  --rounded-md: 1rem;
+  --rounded-sm: 0.5rem;
 }

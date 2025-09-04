@@ -6,7 +6,7 @@ import { NgClass } from '@angular/common';
   selector: 'lib-exchange-item-wrapper',
   imports: [NgClass],
   template: ` <div
-    class="exchange-item-wrapper"
+    class="exchange-item-wrapper {{ class() }}"
     [ngClass]="{ 'focus-sensitive': detectFocus() }"
   >
     <ng-content />
@@ -15,4 +15,5 @@ import { NgClass } from '@angular/common';
 })
 export class ExchangeItemWrapper {
   detectFocus = input<boolean>(false);
+  class = input<string>('');
 }

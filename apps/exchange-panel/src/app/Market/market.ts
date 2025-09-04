@@ -1,6 +1,11 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Button } from '@packages/ui';
-import { ExchangeItemWrapper, DealValueField } from '@packages/ui';
+import {
+  ExchangeItemWrapper,
+  DealValueField,
+  CoinSwapButtonComponent,
+  TransactionFieldsWrapperComponent,
+} from '@packages/ui';
 import {
   calcExchangeRate,
   convertToken,
@@ -20,6 +25,8 @@ import { Subscription } from 'rxjs';
     ExchangeItemWrapper,
     DealValueField,
     ChooseTokenModalComponent,
+    CoinSwapButtonComponent,
+    TransactionFieldsWrapperComponent,
   ],
   templateUrl: './market.html',
   styleUrl: './market.css',

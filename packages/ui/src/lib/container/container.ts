@@ -7,7 +7,7 @@ import { Component, input } from '@angular/core';
     `
       div {
         box-sizing: border-box;
-        width: min(50vw, 27rem);
+        width: min(90vw, 27rem);
         margin: 0 auto;
         padding: 0;
       }

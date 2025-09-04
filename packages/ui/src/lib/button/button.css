@@ -1,0 +1,16 @@
+@import '@packages/theme';
+
+button {
+  background: none;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  background-color: var(--primary);
+  color: var(--text-dark);
+  font-weight: bold;
+  border-radius: var(--rounded-sm);
+  border: none;
+  cursor: pointer;
+}
+button:disabled {
+  background-color: #eedfaf;
+}

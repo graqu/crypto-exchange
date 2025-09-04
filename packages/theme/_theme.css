@@ -8,8 +8,9 @@
 
   --sub-background: #0f0f0f;
   --background: #060606;
+  --selected-sub-background: #191818;
 
   /* sizing */
-  --rounded-md: 1rem;
-  --rounded-sm: 0.5rem;
+  --rounded-md: 1em;
+  --rounded-sm: 0.5em;
 }

@@ -11,7 +11,7 @@ import { NgClass } from '@angular/common';
   >
     <ng-content />
   </div>`,
-  styleUrl: './exchangeItemWrapper.css',
+  styleUrl: './exchange-item-wrapper.css',
 })
 export class ExchangeItemWrapper {
   detectFocus = input<boolean>(false);

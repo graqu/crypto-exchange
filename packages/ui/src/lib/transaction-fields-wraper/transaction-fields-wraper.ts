@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 0.2rem;
+        gap: 0.125rem;
       }
     `,
   ],

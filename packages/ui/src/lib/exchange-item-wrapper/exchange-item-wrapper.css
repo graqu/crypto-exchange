@@ -7,5 +7,6 @@
   min-width: 7.5 rem;
 }
 .focus-sensitive:focus-within {
-  border: 2px solid gold;
+  border: 2px solid var(--primary);
+  background-color: var(--selected-sub-background);
 }

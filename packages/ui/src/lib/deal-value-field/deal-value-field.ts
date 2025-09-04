@@ -24,6 +24,7 @@ import { Component, input, output } from '@angular/core';
   `,
   styleUrl: './deal-value-field.css',
 })
+
 export class DealValueField {
   inputName = input<'sell' | 'buy'>('sell');
   currency = input<string>('BTC');

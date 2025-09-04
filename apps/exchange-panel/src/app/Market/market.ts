@@ -16,7 +16,7 @@ import {
   CoinData,
 } from '@packages/shared';
 import { MarketDataService } from '@crypto-exchange/market-simulation';
-import { ChooseTokenModalComponent } from '../components/chooseTokenModal/chooseTokenModal';
+import { ChooseTokenModalComponent } from '../components/chooseTokenModal/choose-token-modal';
 import { Subscription } from 'rxjs';
 
 @Component({

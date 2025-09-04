@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { input, output } from '@angular/core';
+import { input } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({

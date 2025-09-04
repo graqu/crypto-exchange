@@ -7,3 +7,4 @@ export * from './lib/transaction-fields-wraper/transaction-fields-wraper';
 export * from './lib/price-info-item/price-info-item';
 export * from './lib/tab-menu/tab-menu';
 export * from './lib/tab-link/tab-link';
+export * from './lib/dialog/dialog';

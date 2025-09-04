@@ -25,6 +25,10 @@ import { Component, input } from '@angular/core';
         transform: translate(-50%, -50%);
         cursor: pointer;
     }
+    .coin-swap-button:hover {
+        background-color: var(--selected-sub-background);
+       transition: background-color .3;
+    }
  `,
 })
 export class CoinSwapButtonComponent {

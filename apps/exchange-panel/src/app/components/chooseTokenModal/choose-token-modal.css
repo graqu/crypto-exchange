@@ -1,0 +1,10 @@
+.coin-option {
+  margin-bottom: 5px;
+  padding: 1em;
+  background-color: gold;
+  text-align: center;
+  cursor: pointer;
+}
+.coin-option:hover {
+  background-color: #eedfaf;
+}

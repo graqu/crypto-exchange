@@ -1,0 +1,46 @@
+<lib-dialog
+  [customTrigger]="true"
+  #dialogRef
+  [heading]="'Select token'"
+  triggerLabel="check It ∨"
+>
+  <h1>Choose one option</h1>
+  @for(coin of coinsList; track coin.id){
+  <button class="coin-option" type="button" (click)="closeDialog(coin.symbol)">
+    <p>{{ coin.name }}</p>
+    <p>{{ coin.symbol }}</p>
+  </button>
+  }
+</lib-dialog>
+<lib-button type="button" (click)="dialogRef.openDialog()">
+  <img
+    [src]="imagePath()"
+    alt=""
+    width="24"
+    (error)="handleIconNotFound()"
+  /><span>{{ label() }}</span>
+</lib-button>
+
+<!-- <lib-button type="button" (click)="openDialog()">
+     <img
+       [src]="imagePath()"
+       alt=""
+       width="24"
+       (error)="handleIconNotFound()"
+     /><span>{{ label() }}</span>
+   </lib-button>
+   <dialog #dialogRef class="modal">
+     <div class="modal-content">
+       <h1>Choose one option</h1>
+       @for(coin of coinsList; track coin.id){
+       <button
+         class="coin-option"
+         type="button"
+         (click)="closeDialog(coin.symbol)"
+       >
+         <p>{{ coin.name }}</p>
+         <p>{{ coin.symbol }}</p>
+       </button>
+       }
+     </div>
+   </dialog> -->

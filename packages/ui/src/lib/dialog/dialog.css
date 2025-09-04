@@ -1,0 +1,40 @@
+@import '@packages/theme';
+
+dialog {
+  position: fixed;
+  padding: 1.5rem;
+  top: 50%;
+  left: 50%;
+  width: min(max(270px, 40vw), 30rem);
+  height: max(200px, 80vh);
+  border: none;
+  background-color: var(--sub-background);
+  color: white;
+  border-radius: var(--rounded-md);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+.dialog-header {
+  display: flex;
+  padding: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+.dialog-header h1 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.close-icon {
+  display: block;
+  padding: 0.15em 0.4em;
+  font-weight: lighter;
+  background: none;
+  border: none;
+  color: white;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}

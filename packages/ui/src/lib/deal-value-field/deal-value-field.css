@@ -2,7 +2,6 @@
 
 .deal-value-field {
   display: flex;
-  width: 200px;
   align-items: center;
   margin-bottom: 8px;
 }
@@ -15,7 +14,8 @@
 }
 .deal-value-field input {
   appearance: none;
-  padding: 0.5em 0.25em;
+  padding: 0.35em 0;
+  width: 100%;
   margin: 0;
   font-size: 2rem;
   line-height: 1em;

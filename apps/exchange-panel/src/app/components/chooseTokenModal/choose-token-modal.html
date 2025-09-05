@@ -5,7 +5,10 @@
   triggerLabel="check It ∨"
 >
   <div class="content">
-    <lib-input inputType="search" (onValueChange)="handleSearch($event)" />
+    <lib-input
+      inputType="search"
+      (valueChangeCallback)="handleSearch($event)"
+    />
 
     <ul class="coins-list">
       @for(coin of coinsList(); track coin.id){

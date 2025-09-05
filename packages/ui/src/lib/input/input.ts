@@ -10,10 +10,10 @@ import { LucideAngularModule, Search } from 'lucide-angular';
 export class Input {
   readonly SearchIcon = Search;
   inputType = input<string>('');
-  onValueChange = output<string>();
+  valueChangeCallback = output<string>();
 
   inputChangeHandler(event: Event) {
     const input = event.target as HTMLInputElement
-    this.onValueChange.emit(input.value);
+    this.valueChangeCallback.emit(input.value);
   }
 }

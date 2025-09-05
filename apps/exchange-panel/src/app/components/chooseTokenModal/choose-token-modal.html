@@ -20,7 +20,9 @@
     </ul>
   </div>
 </lib-dialog>
-@if(label()===''){<lib-button>Choose coin</lib-button>}@else {
+@if(label()===''){<lib-button type="button" (click)="dialogRef.openDialog()"
+  >Choose coin</lib-button
+>}@else {
 <lib-button type="button" (click)="dialogRef.openDialog()">
   <img
     [src]="imagePath()"

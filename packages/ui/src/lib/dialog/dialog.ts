@@ -8,24 +8,7 @@ import { Button } from '@packages/ui';
 @Component({
   selector: 'lib-dialog',
   imports: [Button],
-  template: `
-    @if (!customTrigger()) {
-    <lib-button type="button" (click)="openDialog()">
-      {{ triggerLabel() }}
-    </lib-button>
-    }
-    <dialog #dialogRef>
-      <div class="dialog-header">
-        <h1>{{ heading() }}</h1>
-        <button type="button" class="close-icon" (click)="closeDialog()">
-          ×
-        </button>
-      </div>
-      <div class="dialog-content">
-        <ng-content></ng-content>
-      </div>
-    </dialog>
-  `,
+  templateUrl: './dialog.html',
   styleUrl: './dialog.css',
 })
 export class Dialog {

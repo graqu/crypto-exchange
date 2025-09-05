@@ -9,12 +9,18 @@ dialog {
   height: max(200px, 80vh);
   border: none;
   background-color: var(--sub-background);
+  overflow: hidden;
   color: white;
   border-radius: var(--rounded-md);
   -webkit-transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
+}
+dialog:open {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 .dialog-header {
   display: flex;
@@ -25,6 +31,11 @@ dialog {
 .dialog-header h1 {
   font-size: 1rem;
   font-weight: 500;
+}
+.dialog-content {
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow-y: auto;
 }
 .close-icon {
   display: block;

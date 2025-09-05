@@ -4,13 +4,20 @@
   [heading]="'Select token'"
   triggerLabel="check It ∨"
 >
-  <h1>Choose one option</h1>
-  @for(coin of coinsList; track coin.id){
-  <button class="coin-option" type="button" (click)="closeDialog(coin.symbol)">
-    <p>{{ coin.name }}</p>
-    <p>{{ coin.symbol }}</p>
-  </button>
-  }
+  <div class="content">
+    <input type="text" placeholder="Search" />
+    <ul class="coins-list">
+      @for(coin of coinsList; track coin.id){
+
+      <lib-crypto-list-item
+        [coin]="coin"
+        [image]="`/${coin.symbol.toLowerCase()}-logo.png`"
+        (click)="closeDialog(coin.symbol)"
+        (keypress)="closeDialog(coin.symbol)"
+      />
+      }
+    </ul>
+  </div>
 </lib-dialog>
 <lib-button type="button" (click)="dialogRef.openDialog()">
   <img

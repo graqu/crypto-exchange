@@ -10,6 +10,7 @@
         <app-choose-token-modal
           (userChoiceHandler)="changeCoinOnInput($event, true)"
           [label]="firstItem.coin"
+          [avoid]="secondItem.coin"
         />
       </lib-deal-value-field>
     </lib-exchange-item-wrapper>

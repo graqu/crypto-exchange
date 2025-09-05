@@ -7,21 +7,6 @@ import { Dialog } from '@packages/ui';
     <div class="limit">
       <h1>Not available yet</h1>
       <p>Sorry, Feature "Limit Sell" is currently under construction.</p>
-      <lib-dialog
-        [customTrigger]="true"
-        #dialogRef
-        [heading]="'Select token'"
-        triggerLabel="check It ∨"
-        >Tu nic nie ma... jeszcze
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-          officiis sint, reiciendis, amet alias labore rerum provident, ullam
-          quos nesciunt deleniti dignissimos nulla quisquam vero quidem ab nobis
-          pariatur est.
-        </p>
-        <button (click)="dialogRef.closeDialog()">kliknij aby zamknąć</button>
-      </lib-dialog>
-      <button (click)="dialogRef.openDialog()">kliknij aby otworzyć</button>
     </div>
   `,
   styles: `
@@ -39,8 +24,6 @@ import { Dialog } from '@packages/ui';
       color: var(--text-mid)
     }
   `,
-  imports: [Dialog],
 })
 export class Limit {
-  // Component logic goes here
 }

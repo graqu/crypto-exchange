@@ -43,7 +43,7 @@ export class Market implements OnInit, OnDestroy {
     btcPrice: 0,
   };
   secondItem: TransationItem = {
-    coin: 'ETH',
+    coin: '',
     amount: 0,
     usdPrice: 0,
     btcPrice: 0,
@@ -85,7 +85,6 @@ export class Market implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Pamiętaj o wyczyszczeniu subskrypcji
     if (this.marketDataSubscription) {
       this.marketDataSubscription.unsubscribe();
     }
@@ -110,13 +109,9 @@ export class Market implements OnInit, OnDestroy {
       this.secondItem.amount = amount;
     }
     this.isFormValid = validateBuySellForm(this.firstItem, this.secondItem);
-    console.log(
-      'Amount changed:',
-      amount,
-      isFirst ? 'na pierwszym polu' : 'na drugim'
-    );
   };
   swapCurrencies = () => {
+    if (this.secondItem.coin === '') return;
     const newFirst = { ...this.secondItem };
     const newSecond = { ...this.firstItem };
 

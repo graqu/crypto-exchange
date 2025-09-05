@@ -8,6 +8,7 @@ import { Component, input, output } from '@angular/core';
         <input
           type="number"
           [id]="inputName()"
+          min="0"
           [name]="inputName()"
           [value]="amount()"
           (input)="runChangeEvent($event)"
@@ -24,7 +25,6 @@ import { Component, input, output } from '@angular/core';
   `,
   styleUrl: './deal-value-field.css',
 })
-
 export class DealValueField {
   inputName = input<'sell' | 'buy'>('sell');
   currency = input<string>('BTC');
@@ -38,6 +38,8 @@ export class DealValueField {
 
     if (!isNaN(value)) {
       this.changeCallback.emit(value);
+    } else {
+      this.changeCallback.emit(0);
     }
   }
 }

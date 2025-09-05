@@ -9,15 +9,18 @@ import {
 } from '@angular/core';
 import { Button, Dialog, CryptoListItem, Input } from '@packages/ui';
 import { marketData } from '@crypto-exchange/market-simulation';
+import { ChevronDown, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-choose-token-modal',
-  imports: [Dialog, Button, CryptoListItem, Input],
+  imports: [Dialog, Button, CryptoListItem, Input, LucideAngularModule],
   templateUrl: './choose-token-modal.html',
   styleUrl: './choose-token-modal.css',
 })
 export class ChooseTokenModalComponent {
   @ViewChild('dialogRef') dialogRef!: Dialog;
+  readonly ChevronDownIcon = ChevronDown;
+
   label = input<string>('');
   userChoiceHandler = output<string>();
   avoid = input<string>('');

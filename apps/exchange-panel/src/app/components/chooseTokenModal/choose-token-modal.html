@@ -20,15 +20,32 @@
     </ul>
   </div>
 </lib-dialog>
-@if(label()===''){<lib-button type="button" (click)="dialogRef.openDialog()"
-  >Choose coin</lib-button
+@if(label()===''){<lib-button
+  type="button"
+  [customClass]="'inactive-coin-trigger'"
+  (click)="dialogRef.openDialog()"
+  ><div class="coin-symbol">
+    <p>Select token</p>
+    <lucide-icon
+      [img]="ChevronDownIcon"
+      size="16"
+    ></lucide-icon></div></lib-button
 >}@else {
-<lib-button type="button" (click)="dialogRef.openDialog()">
+<lib-button
+  type="button"
+  [customClass]="'active-coin-trigger'"
+  (click)="dialogRef.openDialog()"
+>
   <img
     [src]="imagePath()"
-    alt=""
+    alt="{{label()}}"
     width="24"
+    height="24"
     (error)="handleIconNotFound()"
-  /><span>{{ label() }}</span>
+  />
+  <div class="coin-symbol">
+    <p>{{ label() }}</p>
+    <lucide-icon [img]="ChevronDownIcon" size="16"></lucide-icon>
+  </div>
 </lib-button>
 }

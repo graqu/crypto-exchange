@@ -22,10 +22,10 @@ export function provideDefaultValues(marketData: CoinData[]) {
       btcPrice: 1,
     },
     secondItem: {
-      coin: 'ETH',
+      coin: '',
       amount: 0,
-      usdPrice: marketData.find((coin) => coin.symbol === 'ETH')?.priceUsd || 0,
-      btcPrice: 0.2,
+      usdPrice: 0,
+      btcPrice: 0,
     },
   };
 }

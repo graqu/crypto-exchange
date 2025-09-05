@@ -19,7 +19,8 @@
         "packages/market-simulation/src/index.ts"
       ],
       "@packages/shared": ["packages/shared/src/index.ts"],
-      "@packages/ui": ["packages/ui/src/index.ts"]
+      "@packages/ui": ["packages/ui/src/index.ts"],
+      "@packages/theme": ["packages/theme/_theme.css"]
     }
   },
   "exclude": ["node_modules", "tmp"]

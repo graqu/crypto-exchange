@@ -1,0 +1,22 @@
+@import '@packages/theme';
+.input-with-icon input {
+  padding: 0.8em 1em;
+  width: 100%;
+  background-color: var(--background);
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1em;
+  color: var(--text-light);
+  border-radius: var(--rounded-sm);
+}
+
+.input-with-icon {
+  position: relative;
+  margin: 1rem 0;
+}
+.input-with-icon .icon {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}

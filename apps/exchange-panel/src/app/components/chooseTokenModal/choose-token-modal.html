@@ -1,0 +1,54 @@
+<lib-dialog
+  [customTrigger]="true"
+  #dialogRef
+  [heading]="'Select token'"
+  triggerLabel="check It ∨"
+>
+  <div class="content">
+    <lib-input
+      inputType="search"
+      (valueChangeCallback)="handleSearch($event)"
+    />
+
+    <ul class="coins-list">
+      @for(coin of coinsList(); track coin.id){
+
+      <lib-crypto-list-item
+        [coin]="coin"
+        [image]="`/${coin.symbol.toLowerCase()}-logo.png`"
+        (click)="closeDialog(coin.symbol)"
+        (keypress)="closeDialog(coin.symbol)"
+      />
+      }
+    </ul>
+  </div>
+</lib-dialog>
+@if(label()===''){<lib-button
+  type="button"
+  [customClass]="'inactive-coin-trigger'"
+  (click)="dialogRef.openDialog()"
+  ><div class="coin-symbol">
+    <p>Select token</p>
+    <lucide-icon
+      [img]="ChevronDownIcon"
+      size="16"
+    ></lucide-icon></div></lib-button
+>}@else {
+<lib-button
+  type="button"
+  [customClass]="'active-coin-trigger'"
+  (click)="dialogRef.openDialog()"
+>
+  <img
+    [src]="imagePath()"
+    alt="{{label()}}"
+    width="24"
+    height="24"
+    (error)="handleIconNotFound()"
+  />
+  <div class="coin-symbol">
+    <p>{{ label() }}</p>
+    <lucide-icon [img]="ChevronDownIcon" size="16"></lucide-icon>
+  </div>
+</lib-button>
+}

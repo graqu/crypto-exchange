@@ -3,11 +3,12 @@ import { Component, input, output } from '@angular/core';
   selector: 'lib-deal-value-field',
   template: `
     <div class="deal-value-field">
-      <div>
+      <div class="amount">
         <label [for]="inputName()">{{ inputName() }}:</label>
         <input
           type="number"
           [id]="inputName()"
+          min="0"
           [name]="inputName()"
           [value]="amount()"
           (input)="runChangeEvent($event)"
@@ -22,7 +23,7 @@ import { Component, input, output } from '@angular/core';
       </div>
     </div>
   `,
-  styleUrl: './dealValueField.css',
+  styleUrl: './deal-value-field.css',
 })
 export class DealValueField {
   inputName = input<'sell' | 'buy'>('sell');
@@ -37,6 +38,8 @@ export class DealValueField {
 
     if (!isNaN(value)) {
       this.changeCallback.emit(value);
+    } else {
+      this.changeCallback.emit(0);
     }
   }
 }

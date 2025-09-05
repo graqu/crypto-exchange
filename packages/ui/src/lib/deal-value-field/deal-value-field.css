@@ -1,0 +1,34 @@
+@import '@packages/theme';
+
+.deal-value-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.deal-value-field label {
+  display: block;
+  padding: 0;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+.deal-value-field input {
+  appearance: none;
+  padding: 0.35em 0;
+  width: 100%;
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1em;
+  background-color: transparent;
+  color: var(--text-light);
+  border: none;
+}
+.deal-value-field input:focus {
+  outline: none;
+}
+
+.deal-value-field input[type='number']::-webkit-outer-spin-button,
+.deal-value-field input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

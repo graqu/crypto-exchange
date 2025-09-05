@@ -1,0 +1,27 @@
+@import '@packages/theme';
+
+.coin-option {
+  margin-bottom: 5px;
+  padding: 0.2rem 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  border-radius: var(--rounded-sm);
+  transition: background-color 0.3s;
+}
+.coin-option:hover {
+  background-color: var(--background);
+}
+.coin-symbol {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-bottom: 0.5em;
+}
+.coin-full-name {
+  color: var(--text-mid);
+  font-size: 0.75rem;
+}

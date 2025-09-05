@@ -1,0 +1,50 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow-y: hidden;
+}
+.content input {
+  padding: 0.8em 1em;
+  width: 100%;
+  background-color: var(--background);
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1em;
+  color: var(--text-light);
+  border-radius: var(--rounded-sm);
+}
+.coin-option {
+  margin-bottom: 5px;
+  padding: 1em;
+  background-color: gold;
+  text-align: center;
+  cursor: pointer;
+}
+.coin-option:hover {
+  background-color: #eedfaf;
+}
+.coins-list {
+  list-style: none;
+  overflow-y: auto;
+  flex-grow: 1;
+  max-width: 100%;
+}
+.searchbar-wrapper {
+  position: relative;
+  margin: 1rem 0;
+}
+.searchbar-wrapper .icon {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+.coin-symbol {
+  display: flex;
+  gap: 0.4em;
+  margin-left: 0.5em;
+}
+.coin-symbol p {
+  white-space: preserve nowrap;
+}

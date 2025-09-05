@@ -1,0 +1,18 @@
+<li>
+  <div class="coin-option">
+    <div class="coin-icon">
+      <img
+        #imageRef
+        [src]="image()"
+        alt="{{ coin()?.symbol }}"
+        width="24"
+        height="24"
+        (error)="handleIconNotFound($event)"
+      />
+    </div>
+    <div class="coin-names">
+      <p class="coin-symbol">{{ coin()?.name }}</p>
+      <p class="coin-full-name">{{ coin()?.symbol }}</p>
+    </div>
+  </div>
+</li>

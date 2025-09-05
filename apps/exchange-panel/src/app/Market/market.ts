@@ -1,6 +1,12 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { Button } from '@packages/ui';
-import { ExchangeItemWrapper, DealValueField } from '@packages/ui';
+import {
+  Button,
+  CoinSwapButtonComponent,
+  ExchangeItemWrapper,
+  DealValueField,
+  TransactionFieldsWrapperComponent,
+  PriceInfoItemComponent,
+} from '@packages/ui';
 import {
   calcExchangeRate,
   convertToken,
@@ -10,7 +16,7 @@ import {
   CoinData,
 } from '@packages/shared';
 import { MarketDataService } from '@crypto-exchange/market-simulation';
-import { ChooseTokenModalComponent } from '../components/chooseTokenModal/chooseTokenModal';
+import { ChooseTokenModalComponent } from '../components/chooseTokenModal/choose-token-modal';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -20,6 +26,9 @@ import { Subscription } from 'rxjs';
     ExchangeItemWrapper,
     DealValueField,
     ChooseTokenModalComponent,
+    CoinSwapButtonComponent,
+    TransactionFieldsWrapperComponent,
+    PriceInfoItemComponent,
   ],
   templateUrl: './market.html',
   styleUrl: './market.css',
@@ -34,7 +43,7 @@ export class Market implements OnInit, OnDestroy {
     btcPrice: 0,
   };
   secondItem: TransationItem = {
-    coin: 'ETH',
+    coin: '',
     amount: 0,
     usdPrice: 0,
     btcPrice: 0,
@@ -76,7 +85,6 @@ export class Market implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Pamiętaj o wyczyszczeniu subskrypcji
     if (this.marketDataSubscription) {
       this.marketDataSubscription.unsubscribe();
     }
@@ -101,13 +109,9 @@ export class Market implements OnInit, OnDestroy {
       this.secondItem.amount = amount;
     }
     this.isFormValid = validateBuySellForm(this.firstItem, this.secondItem);
-    console.log(
-      'Amount changed:',
-      amount,
-      isFirst ? 'na pierwszym polu' : 'na drugim'
-    );
   };
   swapCurrencies = () => {
+    if (this.secondItem.coin === '') return;
     const newFirst = { ...this.secondItem };
     const newSecond = { ...this.firstItem };
 

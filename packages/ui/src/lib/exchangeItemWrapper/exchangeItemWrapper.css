@@ -1,8 +1,0 @@
-.exchange-item-wrapper {
-  padding: 1em;
-  background-color: #333;
-  border-radius: 1rem;
-}
-.focus-sensitive:focus-within {
-  border: 2px solid gold;
-}

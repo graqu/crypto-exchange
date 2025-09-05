@@ -51,6 +51,7 @@
     "jest-util": "^30.0.2",
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
+    "lucide-angular": "^0.542.0",
     "nx": "21.4.0",
     "prettier": "^2.6.2",
     "ts-jest": "^29.4.0",

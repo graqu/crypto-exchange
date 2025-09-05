@@ -1,5 +1,5 @@
-import { Component, ElementRef, input, output, ViewChild } from '@angular/core';
-import { Button } from '@packages/ui';
+import { Component, ElementRef, input, ViewChild } from '@angular/core';
+import { Button } from '../button/button';
 
 /**DIALOG Component */
 /**Dialog is universal component to put any content inside */

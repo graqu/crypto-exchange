@@ -5,8 +5,8 @@
   overflow-y: hidden;
 }
 .content input {
-  margin: 1rem 0;
   padding: 0.8em 1em;
+  width: 100%;
   background-color: var(--background);
   border: none;
   outline: none;
@@ -30,4 +30,13 @@
   overflow-y: auto;
   flex-grow: 1;
   max-width: 100%;
+}
+.searchbar-wrapper {
+  position: relative;
+  margin: 1rem 0;
+}
+.searchbar-wrapper .icon {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
 }

@@ -8,16 +8,18 @@ import {
 } from '@angular/core';
 import { Button, Dialog, CryptoListItem } from '@packages/ui';
 import { marketData } from '@crypto-exchange/market-simulation';
+import { LucideAngularModule, Search } from 'lucide-angular';
 
 @Component({
   selector: 'app-choose-token-modal',
-  imports: [Dialog, Button, CryptoListItem],
+  imports: [Dialog, Button, CryptoListItem, LucideAngularModule],
   templateUrl: './choose-token-modal.html',
   styleUrl: './choose-token-modal.css',
 })
 export class ChooseTokenModalComponent {
   @ViewChild('dialogRef') dialogRef!: Dialog;
-  coinsList = marketData
+  readonly Search = Search;
+  coinsList = marketData;
   label = input<string>('');
   userChoiceHandler = output<string>();
   avoid = input<string>('');

@@ -5,7 +5,12 @@
   triggerLabel="check It ∨"
 >
   <div class="content">
-    <input type="text" placeholder="Search" />
+    <div class="searchbar-wrapper">
+      <input type="text" placeholder="Search" />
+      <div class="icon">
+        <lucide-icon [img]="Search" size="15"></lucide-icon>
+      </div>
+    </div>
     <ul class="coins-list">
       @for(coin of coinsList; track coin.id){
 

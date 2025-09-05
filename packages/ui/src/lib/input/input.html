@@ -1,0 +1,12 @@
+<div class="input-with-icon">
+  <input
+    type="text"
+    placeholder="Search"
+    (input)="inputChangeHandler($event)"
+  />
+  @if(inputType()==='search'){
+  <div class="icon">
+    <lucide-icon [img]="SearchIcon" size="15"></lucide-icon>
+  </div>
+  }
+</div>

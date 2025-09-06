@@ -1,93 +1,29 @@
 import { CoinData } from '@packages/shared';
+import { INITIAL_MARKET_DATA } from '../initial-pricing-data/initial-pricing-data';
 
-export let marketData: CoinData[] = [
-  {
-    id: 1,
-    symbol: 'BTC',
-    name: 'Bitcoin',
-    priceUsd: 110532,
-    priceBtc: 1,
-    iconUrl: '',
-  },
-  {
-    id: 2,
-    symbol: 'ETH',
-    name: 'Ethereum',
-    priceUsd: 4290.67,
-    priceBtc: 0.03881,
-    iconUrl: '',
-  },
-  {
-    id: 3,
-    symbol: 'USDT',
-    name: 'Tether',
-    priceUsd: 1.0,
-    priceBtc: 0.000009,
-    iconUrl: '',
-  },
-  {
-    id: 4,
-    symbol: 'XRP',
-    name: 'XRP',
-    priceUsd: 2.8,
-    priceBtc: 0.000025,
-    iconUrl: '',
-  },
-  {
-    id: 5,
-    symbol: 'BNB',
-    name: 'BNB',
-    priceUsd: 849.68,
-    priceBtc: 0.007687,
-    iconUrl: '',
-  },
-  {
-    id: 6,
-    symbol: 'SOL',
-    name: 'Solana',
-    priceUsd: 204.13,
-    priceBtc: 0.001847,
-    iconUrl: '',
-  },
-  {
-    id: 7,
-    symbol: 'USDC',
-    name: 'USD Coin',
-    priceUsd: 0.9999,
-    priceBtc: 0.000009,
-    iconUrl: '',
-  },
-  {
-    id: 8,
-    symbol: 'STETH',
-    name: 'Lido Staked Ether',
-    priceUsd: 4282.82,
-    priceBtc: 0.03874,
-    iconUrl: '',
-  },
-  {
-    id: 9,
-    symbol: 'DOGE',
-    name: 'Dogecoin',
-    priceUsd: 0.2113,
-    priceBtc: 0.000002,
-    iconUrl: '',
-  },
-  {
-    id: 10,
-    symbol: 'TRX',
-    name: 'TRON',
-    priceUsd: 0.3373,
-    priceBtc: 0.000003,
-    iconUrl: '',
-  },
-];
+export let marketData = [...INITIAL_MARKET_DATA];
 
 const priceFluctuations = 1; //descibes how many [%] down or up can price change in defined time period
 const initialPriceData = marketData.map((coin) => ({
   ...coin,
 })) satisfies CoinData[];
 
+/** Replaces market data with new array */
+export function updateMarketData() {
+  const btcData = marketData.find((coin) => (coin.symbol = 'BTC'));
+  if (!btcData) return;
+
+  const newBtcData = updateCoinData(btcData, 1);
+
+  const newMarketData = [...marketData].map((coin) => {
+    if (coin.symbol === 'BTC') return newBtcData;
+    return updateCoinData(coin, newBtcData.priceUsd);
+  });
+
+  marketData = newMarketData;
+}
+
+/**limitMaxPriceChange - prevents prices to reach unrealistic values */
 function limitMaxPriceChange(price: number, referencePrice: number) {
   return Math.min(
     Math.max(price, referencePrice * (1 - priceFluctuations / 100)),
@@ -95,12 +31,15 @@ function limitMaxPriceChange(price: number, referencePrice: number) {
   );
 }
 
+/**generateNewPrice - takes single price an provides new value with random fluctuation */
 function generateNewPrice(price: number, referencePrice: number) {
   const change =
     Math.random() * (priceFluctuations * 2) - priceFluctuations / 2;
 
   return limitMaxPriceChange(price + (price * change) / 100, referencePrice);
 }
+
+/**updateCoinData - takes single coin from market data and provides copy with new pricing */
 export function updateCoinData(coin: CoinData, btcToUsd: number) {
   const referencePrice = initialPriceData.find(
     (item) => item.name === coin.name
@@ -116,16 +55,3 @@ export function updateCoinData(coin: CoinData, btcToUsd: number) {
   };
 }
 
-export function updateMarketData() {
-  const btcData = marketData.find((coin) => (coin.symbol = 'BTC'));
-  if (!btcData) return;
-
-  const newBtcData = updateCoinData(btcData, 1);
-
-  const newMarketData = [...marketData].map((coin) => {
-    if (coin.symbol === 'BTC') return newBtcData;
-    return updateCoinData(coin, newBtcData.priceUsd);
-  });
-
-  marketData = newMarketData;
-}

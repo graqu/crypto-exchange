@@ -7,20 +7,7 @@ import { Component, input } from '@angular/core';
       ( {{ '$' + usdPrice()?.toFixed(3) }})</span
     >}
   </p>`,
-  styles: `
-  @import '@packages/theme';
-  
-  p{
-    text-align: center;
-    font-size: 1rem;
-    line-height: 1.25em
-    color: var(--text-light);
-  }
-  p span{
-    color: var(--text-mid)
-  }
-
-  `,
+  styleUrl: './price-info-item.css',
 })
 export class PriceInfoItemComponent {
   usdPrice = input<number>();

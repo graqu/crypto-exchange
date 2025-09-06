@@ -10,10 +10,10 @@ import {
 import {
   calcExchangeRate,
   convertToken,
-  TransationItem,
-  provideDefaultValues,
+  provideDefaultTokenValues,
   validateBuySellForm,
   CoinData,
+  findToken,
 } from '@packages/shared';
 import { MarketDataService } from '@crypto-exchange/market-simulation';
 import { ChooseTokenModalComponent } from '../components/chooseTokenModal/choose-token-modal';
@@ -36,40 +36,28 @@ import { Subscription } from 'rxjs';
 export class Market implements OnInit, OnDestroy {
   marketData: CoinData[] = [];
   private marketDataSubscription!: Subscription;
-  firstItem: TransationItem = {
-    coin: 'BTC',
-    amount: 0,
-    usdPrice: 0,
-    btcPrice: 0,
-  };
-  secondItem: TransationItem = {
-    coin: '',
-    amount: 0,
-    usdPrice: 0,
-    btcPrice: 0,
-  };
+
+  firstItem = provideDefaultTokenValues().firstItem;
+  secondItem = provideDefaultTokenValues().secondItem;
   exchangeRate = 1;
   lastActiveField: 'buy' | 'sell' = 'buy';
   isFormValid = false;
 
   private marketDataService = inject(MarketDataService);
+
+  // Subscribe data from market
   ngOnInit(): void {
-    // Service data streaming
     this.marketDataSubscription = this.marketDataService.marketData$.subscribe(
       (data) => {
         this.marketData = data;
 
-        const itemToSellData = this.marketData.find(
-          (coin) => coin.symbol === this.firstItem.coin
-        );
+        const itemToSellData = findToken(this.marketData, this.firstItem.coin);
         if (itemToSellData) {
           this.firstItem.usdPrice = itemToSellData.priceUsd;
           this.firstItem.btcPrice = itemToSellData.priceBtc;
         }
 
-        const itemToBuyData = this.marketData.find(
-          (coin) => coin.symbol === this.secondItem.coin
-        );
+        const itemToBuyData = findToken(this.marketData, this.secondItem.coin);
         if (itemToBuyData) {
           this.secondItem.usdPrice = itemToBuyData.priceUsd;
           this.secondItem.btcPrice = itemToBuyData.priceBtc;
@@ -90,6 +78,7 @@ export class Market implements OnInit, OnDestroy {
     }
   }
 
+  //Update Amounts when user change input value
   updateAmounts = (amount: number, isFirst: boolean) => {
     if (isFirst) {
       this.exchangeRate = calcExchangeRate(
@@ -110,6 +99,8 @@ export class Market implements OnInit, OnDestroy {
     }
     this.isFormValid = validateBuySellForm(this.firstItem, this.secondItem);
   };
+
+  //change currencies in place
   swapCurrencies = () => {
     if (this.secondItem.coin === '') return;
     const newFirst = { ...this.secondItem };
@@ -118,16 +109,10 @@ export class Market implements OnInit, OnDestroy {
     this.firstItem = newFirst;
     this.secondItem = newSecond;
   };
-  confirmTransaction = () => {
-    alert(
-      `Exchange completed — You have bought ${this.secondItem.amount} ${this.secondItem.coin} for ${this.firstItem.amount} ${this.firstItem.coin}`
-    );
-    this.firstItem = provideDefaultValues(this.marketData).firstItem;
-    this.secondItem = provideDefaultValues(this.marketData).secondItem;
-    this.isFormValid = false;
-  };
+
+  //change token on choosen input
   changeCoinOnInput = (newCoin: string, isToSell = true) => {
-    const newCoinData = this.marketData.find((coin) => coin.symbol === newCoin);
+    const newCoinData = findToken(this.marketData, newCoin);
     if (!newCoinData) return;
     if (isToSell) {
       this.firstItem = {
@@ -145,4 +130,20 @@ export class Market implements OnInit, OnDestroy {
       };
     }
   };
+
+  confirmTransaction = () => {
+    alert(
+      `Exchange completed — You have bought ${this.secondItem.amount} ${this.secondItem.coin} for ${this.firstItem.amount} ${this.firstItem.coin}`
+    );
+
+    this.resetTransactionForm();
+  };
+
+  resetTransactionForm() {
+    this.firstItem = provideDefaultTokenValues().firstItem;
+    this.secondItem = provideDefaultTokenValues().secondItem;
+    this.isFormValid = false;
+    this.exchangeRate = 1;
+    this.lastActiveField = 'buy';
+  }
 }

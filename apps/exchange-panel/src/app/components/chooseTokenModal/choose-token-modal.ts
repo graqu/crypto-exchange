@@ -11,6 +11,7 @@ import { Button, Dialog, CryptoListItem, Input } from '@packages/ui';
 import { marketData } from '@crypto-exchange/market-simulation';
 import { ChevronDown, LucideAngularModule } from 'lucide-angular';
 
+/** Displays dialog with list of tokens to choose **/
 @Component({
   selector: 'app-choose-token-modal',
   imports: [Dialog, Button, CryptoListItem, Input, LucideAngularModule],
@@ -25,7 +26,9 @@ export class ChooseTokenModalComponent {
   userChoiceHandler = output<string>();
   avoid = input<string>('');
   searchTerm = signal('');
+  imagePath = signal('/btc-logo.png');
 
+  //Handle Searchbar filtering + avoid token from second input
   coinsList = computed(() => {
     const avoidValue = this.avoid()?.toLowerCase();
     const searchValue = this.searchTerm().toLowerCase();
@@ -41,8 +44,11 @@ export class ChooseTokenModalComponent {
     );
   });
 
-  imagePath = signal('/btc-logo.png');
+  handleSearch(value: string) {
+    this.searchTerm.set(value);
+  }
 
+  //change image path when label is ready
   constructor() {
     effect(() => {
       const labelValue = this.label();
@@ -52,6 +58,7 @@ export class ChooseTokenModalComponent {
     });
   }
 
+  //provide default icon in case of error
   handleIconNotFound() {
     this.imagePath.set('/btc-logo.png');
   }
@@ -59,9 +66,5 @@ export class ChooseTokenModalComponent {
   closeDialog(chosenOption: string): void {
     this.userChoiceHandler.emit(chosenOption);
     this.dialogRef.closeDialog();
-  }
-
-  handleSearch(value: string) {
-    this.searchTerm.set(value);
   }
 }

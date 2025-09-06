@@ -1,6 +1,8 @@
 import { TransationItem } from '../types/utilTypes';
 import { CoinData } from '../types/utilTypes';
 
+/** Reusable methods to format and calculate transactionValues */
+
 export function provideDefaultTokenValues() {
   return {
     firstItem: {
@@ -18,13 +20,13 @@ export function provideDefaultTokenValues() {
   };
 }
 
-export function formatCoinAmount(amount: number) {
+function formatCoinAmount(amount: number) {
   return parseFloat(amount.toFixed(4));
 }
 
 export function convertToken(amount: number, rate: number): number {
   if (!isFinite(rate)) return 0;
-  
+
   return formatCoinAmount(amount * rate);
 }
 

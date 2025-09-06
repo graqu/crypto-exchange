@@ -1,28 +1,7 @@
 import { Component, input, output } from '@angular/core';
 @Component({
   selector: 'lib-deal-value-field',
-  template: `
-    <div class="deal-value-field">
-      <div class="amount">
-        <label [for]="inputName()">{{ inputName() }}:</label>
-        <input
-          type="number"
-          [id]="inputName()"
-          min="0"
-          [name]="inputName()"
-          [value]="amount()"
-          (input)="runChangeEvent($event)"
-        />
-      </div>
-      <div class="currency">
-        @if(isCustomElement()){
-        <ng-content />
-        } @else{
-        <p>{{ currency() }}</p>
-        }
-      </div>
-    </div>
-  `,
+  templateUrl: 'deal-value-field.html',
   styleUrl: './deal-value-field.css',
 })
 export class DealValueField {

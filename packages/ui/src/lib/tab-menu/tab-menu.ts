@@ -1,4 +1,4 @@
-import { Component, input} from '@angular/core';
+import { Component, input } from '@angular/core';
 import { LinkItemProps, TabLink } from '../tab-link/tab-link';
 
 @Component({
@@ -8,15 +8,7 @@ import { LinkItemProps, TabLink } from '../tab-link/tab-link';
     <lib-tab-link [link]="tab" />
     }
   </div>`,
-  styles: `
-  .tab-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5em;
-  padding: 1rem;
-}
-  `,
+  styleUrl: './tab-menu.css',
   imports: [TabLink],
 })
 export class TabMenu {

@@ -1,0 +1,11 @@
+@import '@packages/theme';
+
+p {
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.25em;
+  color: var(--text-light);
+}
+p span {
+  color: var(--text-mid);
+}
